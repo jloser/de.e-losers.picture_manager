@@ -3,8 +3,9 @@ import tkinter as tk
 # import the filedialog - for P3 import only filedialog
 from tkinter import filedialog
 import sys
+import workerclass as w
 
-class PictureSelect(tk.Frame):
+class GuiClass(tk.Frame):
     
     def __init__(self, master=None):
         super().__init__(master)
@@ -67,7 +68,7 @@ class PictureSelect(tk.Frame):
         # create the GO Button
         self.go = tk.Button(self.f_lmiddle)
         self.go["text"] = "Go Kahuna!"
-        self.go["command"] = self.go
+        self.go["command"] = self.gok
         self.go.pack(side="bottom")
         # create the select button
         self.open = tk.Button(self.f_lright)
@@ -75,13 +76,17 @@ class PictureSelect(tk.Frame):
         self.open["command"] = self.open_dir_selector
         self.open.pack(side="left")
         
-    def go(self):
-        None
+    def gok(self):
+        # create a new worker
+        selected_dir = fs.get_last_dir()
+        worker = w.WorkerClass(self, selected_dir)
+        worker.filewalker()
         
     def close_win(self):
         self.master.destroy()
 
     def open_dir_selector(self):
+
         # fill options with the last selected directory
         options = {"initialdir": fs.get_last_dir()}
         # open a filedialog
@@ -89,3 +94,4 @@ class PictureSelect(tk.Frame):
         # change the string variable for the label
         self.wd_string.set(selected_dir)
         fs.put_last_dir(selected_dir)
+

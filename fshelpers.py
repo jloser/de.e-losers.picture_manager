@@ -1,5 +1,4 @@
 import configparser
-import pictureselect as ps
 import sys, os
 
 def put_last_dir(in_dir):
